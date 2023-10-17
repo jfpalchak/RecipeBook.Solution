@@ -11,19 +11,20 @@ using RecipeBook.Models;
 
 namespace RecipeBook.Controllers;
 
-public class TagsController : Controller
+public class CategoriesController : Controller
 {
-	private readonly RecipeBookContext _db;
-	private UserManager<ApplicationUser> _userManager;
-	
-	public TagsController(UserManager<ApplicationUser> userManager, RecipeBookContext db)
-	{
-		_db = db;
-		_userManager = userManager;
-	}
-	
+  private readonly RecipeBookContext _db;
+  private readonly UserManager<ApplicationUser> _userManager;
+
+  public CategoriesController(UserManager<ApplicationUser> userManager, RecipeBookContext database)
+  {
+    _userManager = userManager;
+    _db = database;
+  }
+
   public ActionResult Index()
   {
     return View();
   }
+
 }
