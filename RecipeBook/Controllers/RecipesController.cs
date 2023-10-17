@@ -23,10 +23,26 @@ public class RecipesController : Controller
     _db = database;
   }
 
+  [HttpPost]
+  #nullable enable
+  public ActionResult Search(string? search)
+  {
+    if (search == null)
+    {
+      return RedirectToAction("Index");
+    }
+    #nullable disable
+    List<Recipe> recipes = _db.Recipes
+                                    .Where(r => r.Ingredients.ToUpper().Contains(search.ToUpper()) || r.Name.ToUpper().Contains(search.ToUpper()))
+                                    .ToList();
+    return View("Index", recipes);
+  }
+
   [AllowAnonymous]
   public ActionResult Index()
   {
-    return View(_db.Recipes.ToList());
+    List<Recipe> recipes = _db.Recipes.ToList();
+    return View(recipes);
   }
 
   public ActionResult Create()

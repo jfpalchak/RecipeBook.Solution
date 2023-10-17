@@ -1,3 +1,35 @@
 @{
   Layout = "_Layout";
 }
+
+@using RecipeBook.Models;
+@model RecipeBook.Models.Tag;
+
+<h5>Tag Details</h5>
+@if(User.Identity.IsAuthenticated)
+{
+  @Html.ActionLink("Add Recipe", "AddRecipe", new { id = Model.TagId }) @:|
+  @Html.ActionLink("Edit Tag", "Edit") @:|
+  @Html.ActionLink("Remove Tag", "Delete")
+}
+<hr/>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This tag does not belong to any items.</p>
+}
+else
+{
+  <h4>Recipes the tag belongs to:</h4>
+  <ul>
+    @foreach (RecipeTag join in Model.JoinEntities)
+    {
+      <li>@join.Recipe.Name</li>
+      @using (Html.BeginForm("DeleteJoin", "Tags"))
+      {
+        @Html.Hidden("joinId", @join.RecipeTagId)
+        <input type="submit" value="Delete" class="btn btn-sm btn-danger"/>
+      }
+    }
+  </ul>
+}

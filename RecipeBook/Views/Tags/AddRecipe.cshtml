@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBook.Models.Tag
+
+<h5>Add a Recipe</h5>
+<hr/>
+<h5>Add an Item to this Tag: @Html.DisplayFor(model => model.Title)</h5>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TagId)
+
+  @Html.Label("Select Recipe")
+  @Html.DropDownList("RecipeId")
+
+  <br/>
+  <input type="submit" value="Save" class="btn btn-primary" />
+}

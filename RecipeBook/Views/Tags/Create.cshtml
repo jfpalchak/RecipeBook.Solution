@@ -1,3 +1,19 @@
 @{
   Layout = "_Layout";
 }
+
+@model RecipeBook.Models.Tag;
+
+<h5>Add New Tag</h5>
+<hr/>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Title)
+  @Html.TextBoxFor(m => m.Title)
+  <br/>
+  @Html.ValidationMessageFor(m => m.Title, "", new { @class="text-danger"})
+  <br/>
+  <br/>
+  <input type="submit" value="Save" class="btn btn-primary" />
+}

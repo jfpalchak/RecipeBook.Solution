@@ -1,3 +1,44 @@
 @{
   Layout = "_Layout";
 }
+
+@using RecipeBook.Models;
+@model RecipeBook.Models.Category;
+
+<h5>Category Details</h5>
+@if(User.Identity.IsAuthenticated)
+{
+  @Html.ActionLink("Edit Category", "Edit") @:|
+  @Html.ActionLink("Remove Category", "Delete")
+}
+<hr/>
+
+<h5>Category: @Model.Name</h5>
+<h6>Available Recipes</h6>
+@if (Model.Recipes.Count == 0)
+{
+  <h3>No recipes have been added yet!</h3>
+}
+else
+{
+  <ul>
+    @foreach(Recipe recipe in Model.Recipes)
+    {
+      string tags = "";
+      @if (recipe.JoinEntities.Count == 0)
+      {
+        tags = "This item does not have any tags.";
+      }
+      else
+      {
+        List<string> tagList = new List<string>();
+        @foreach (RecipeTag join in recipe.JoinEntities)
+        {
+          tagList.Add(join.Tag.Title);
+        }
+        tags = String.Join(", ", tagList);
+      }
+      <li>@recipe.Name | Tags: @tags</li>
+    }
+  </ul>
+}

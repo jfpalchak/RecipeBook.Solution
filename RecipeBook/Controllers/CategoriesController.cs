@@ -49,6 +49,7 @@ public class CategoriesController : Controller
     }
   }
 
+  [AllowAnonymous]
   public ActionResult Details(int id)
   {
     Category foundCategory = _db.Categories

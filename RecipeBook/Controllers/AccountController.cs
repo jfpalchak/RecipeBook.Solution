@@ -11,11 +11,13 @@ public class AccountController : Controller
   private readonly RecipeBookContext _db;
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly SignInManager<ApplicationUser> _signInManager;
+  private readonly RoleManager<ApplicationUser> _roleManager;
 
-  public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RecipeBookContext db)
+  public AccountController (RoleManager<ApplicationUser> roleManager, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RecipeBookContext db)
   {
     _userManager = userManager;
     _signInManager = signInManager;
+    _roleManager = roleManager;
     _db = db;
   }
 

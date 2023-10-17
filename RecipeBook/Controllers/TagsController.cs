@@ -10,7 +10,7 @@ using System.Security.Claims;
 using RecipeBook.Models;
 
 namespace RecipeBook.Controllers;
-
+[Authorize]
 public class TagsController : Controller
 {
 	private readonly RecipeBookContext _db;
@@ -64,7 +64,7 @@ public class TagsController : Controller
     #nullable disable
     if (joinEntity == null && recipeId != 0)
     {
-      _db.RecipeTags.Add(new RecipeTag() { TagId = tag.TagId, RecipeId = recipeId});
+      _db.RecipeTags.Add(new RecipeTag() { RecipeId = recipeId, TagId = tag.TagId });
       _db.SaveChanges();
     }
     return RedirectToAction("Details", new { id = tag.TagId });

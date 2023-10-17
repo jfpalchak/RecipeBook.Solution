@@ -1,10 +1,11 @@
 @{
   Layout = "_Layout";
 }
+<h5>Account Management</h5>
+<hr/>
 
 <div class="container">
-  <h5>Account Management</h5>
-
+  <br/>
   @if(User.Identity.IsAuthenticated)
   {
     <p>Welcome, @User.Identity.Name!</p>

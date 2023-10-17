@@ -23,6 +23,7 @@ namespace RecipeBook
                         );
 
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                  .AddRoles<IdentityRole>()
                   .AddEntityFrameworkStores<RecipeBookContext>()
                   .AddDefaultTokenProviders();
 
