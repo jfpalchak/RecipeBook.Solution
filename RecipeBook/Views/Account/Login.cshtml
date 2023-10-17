@@ -7,7 +7,7 @@
 <div class="container">
   <h5>Log in with your Account</h5>
   <hr/>
-  
+
   @if(!ViewData.ModelState.IsValid)
   {
     @Html.ValidationSummary("Please fix the following error(s):")
@@ -24,7 +24,7 @@
     @Html.EditorFor(user => user.Password)
     <br/>
     <br/>
-    <input type="submit" value="Register" />
+    <input type="submit" value="Log In" />
   }
 
   <br/>

@@ -11,6 +11,7 @@ using RecipeBook.Models;
 
 namespace RecipeBook.Controllers;
 
+[Authorize]
 public class RecipesController : Controller
 {
   private readonly RecipeBookContext _db;
@@ -22,6 +23,7 @@ public class RecipesController : Controller
     _db = database;
   }
 
+  [AllowAnonymous]
   public ActionResult Index()
   {
     return View(_db.Recipes.ToList());
@@ -52,10 +54,12 @@ public class RecipesController : Controller
     }
   }
 
+  [AllowAnonymous]
   public ActionResult Details(int id)
   {
     Recipe thisRecipe = _db.Recipes 
                               .Include(recipe => recipe.Category)
+                              .Include(recipe => recipe.User)
                               .Include(recipe => recipe.JoinEntities)
                               .ThenInclude(join => join.Tag)
                               .FirstOrDefault(recipe => recipe.RecipeId == id);

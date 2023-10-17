@@ -2,7 +2,20 @@
   Layout = "_Layout";
 }
 
+@using RecipeBook.Models;
+@model RecipeBook.Models.Recipe;
+
 <h5>Recipe Details</h5>
-@Html.ActionLink("Edit Recipe", "Edit") |
-@Html.ActionLink("Remove Recipe", "Delete")
+@if(User.Identity.Name == @Model.User.UserName)
+{
+  @Html.ActionLink("Edit Recipe", "Edit") @:|
+  @Html.ActionLink("Remove Recipe", "Delete")
+}
 <hr/>
+
+<h5>@Model.Name</h5>
+submitted by @Model.User.UserName
+<br/>
+<br/>
+<h6>Ingredients: @Model.Ingredients</h6>
+<h6>Instructions: @Model.Instructions</h6>

@@ -5,7 +5,10 @@
 @model List<RecipeBook.Models.Category>;
 
 <h5>Available Categories</h5>
-@Html.ActionLink("Add New Category", "Create")
+@if (User.Identity.IsAuthenticated)
+{
+  @Html.ActionLink("Add New Category", "Create")
+}
 <hr/>
 
 @if (Model.Count == 0)

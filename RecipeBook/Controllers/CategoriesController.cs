@@ -11,6 +11,7 @@ using RecipeBook.Models;
 
 namespace RecipeBook.Controllers;
 
+[Authorize]
 public class CategoriesController : Controller
 {
   private readonly RecipeBookContext _db;
@@ -22,6 +23,7 @@ public class CategoriesController : Controller
     _db = database;
   }
 
+  [AllowAnonymous]
   public ActionResult Index()
   {
     return View(_db.Categories.ToList());
