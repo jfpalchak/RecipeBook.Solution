@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBook.Models.Category;
+
+<h5>Add New Category</h5>
+<hr/>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Name)
+  @Html.TextBoxFor(m => m.Name)
+  <br/>
+  @Html.ValidationMessageFor(m => m.Name, "", new { @class="text-danger"})
+  <br/>
+  <br/>
+  <input type="submit" value="Save" class="btn btn-primary" />
+}

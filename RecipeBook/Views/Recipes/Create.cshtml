@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBook.Models.Recipe;
+
+<h5>Add New Recipe</h5>
+<hr/>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Name)
+  @Html.TextBoxFor(m => m.Name)
+  <br/>
+  @Html.ValidationMessageFor(m => m.Name, "", new { @class="text-danger"})
+  <br/>
+  @Html.LabelFor(m => m.Instructions)
+  @Html.TextBoxFor(m => m.Instructions)
+  <br/>
+  @Html.ValidationMessageFor(m => m.Instructions, "", new { @class="text-danger"})
+  <br/>
+  @Html.LabelFor(m => m.Ingredients)
+  @Html.TextBoxFor(m => m.Ingredients)
+  <br/>
+  @Html.ValidationMessageFor(m => m.Ingredients, "", new { @class="text-danger"})
+  <br>
+  @Html.LabelFor(m => m.Category)
+  @Html.DropDownList("CategoryId")
+  <br/>
+  @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class="text-danger"})
+  <br/>
+  <br/>
+  <input type="submit" value="Add New Item" class="btn btn-primary" />
+}

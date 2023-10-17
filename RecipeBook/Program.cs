@@ -14,9 +14,6 @@ namespace RecipeBook
 
       builder.Services.AddControllersWithViews();
 
-      // Add EF Core as a service to our app.
-      // We specify RecipeBookContext as the type of EF Core database context we want to set up.
-      // (RecipeBookContext is a representation of our MySQL database.)
       builder.Services.AddDbContext<RecipeBookContext>(
                         dbContextOptions => dbContextOptions
                           .UseMySql(

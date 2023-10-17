@@ -1,3 +1,23 @@
 @{
   Layout = "_Layout";
 }
+
+@model List<RecipeBook.Models.Tag>;
+
+<h5>Available Tags</h5>
+@Html.ActionLink("Add New Tag", "Create")
+<hr/>
+
+@if (Model.Count == 0)
+{
+  <p>There are no tags available.</p>
+}
+else
+{
+  <ul>
+    @foreach(Tag tag in Model)
+    {
+      <h6><li>@Html.ActionLink(tag.Title, "Details", new { id = tag.TagId })</li></h6>
+    }
+  </ul>
+}

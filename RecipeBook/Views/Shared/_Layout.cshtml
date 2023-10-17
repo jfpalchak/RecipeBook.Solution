@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body>
+		<nav>
+      <h1>Recipe Book @ViewBag.Path</h1>
+      @Html.ActionLink("Home", "Index", "Home") |
+      @Html.ActionLink("Recipes", "Index", "Recipes") | 
+      @Html.ActionLink("Categories", "Index", "Categories") |
+			@Html.ActionLink("Tags", "Index", "Tags")
+      <span style = "float:right; margin-right: 5px;">
+        @Html.ActionLink("Account", "Index", "Account")
+      </span>
+      <hr/>
+    </nav>
     @RenderBody()
   </body>
 </html>

@@ -1,3 +1,33 @@
 @{
   Layout = "_Layout";
 }
+@using RecipeBook.ViewModels;
+@model RegisterViewModel;
+
+<div class="container">
+  <h5>Register New User</h5>
+  <hr/>
+
+  @if(!ViewData.ModelState.IsValid)
+  {
+    @Html.ValidationSummary("Please fix the following error(s):")
+  }
+
+  @using (Html.BeginForm())
+  {
+    @Html.LabelFor(user => user.Email)
+    <br/>
+    @Html.TextBoxFor(user => user.Email)
+    <br/>
+    @Html.LabelFor(user => user.Password)
+    <br/>
+    @Html.EditorFor(user => user.Password)
+    <br/>
+    @Html.LabelFor(user => user.ConfirmPassword)
+    <br/>
+    @Html.EditorFor(user => user.ConfirmPassword)
+    <br/>
+    <br/>
+    <input type="submit" value="Register" />
+  }
+</div>

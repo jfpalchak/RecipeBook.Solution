@@ -24,6 +24,78 @@ public class TagsController : Controller
 	
   public ActionResult Index()
   {
+    return View(_db.Tags.ToList());
+  }
+
+  public ActionResult Details(int id)
+  {
+    Tag thisTag = _db.Tags
+                      .Include(tag => tag.JoinEntities) // load each join entity, ie, list of ItemTags (references to a relationship)
+                      .ThenInclude(join => join.Recipe) // then, load the Item object associated with each ItemTag join entity
+                      .FirstOrDefault(tag => tag.TagId == id);
+    return View(thisTag);
+  }
+
+  public ActionResult Create()
+  {
     return View();
+  }
+
+  [HttpPost]
+  public ActionResult Create(Tag tag)
+  {
+    _db.Tags.Add(tag);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
+  }
+
+  public ActionResult AddRecipe(int id)
+  {
+    Tag thisTag = _db.Tags.FirstOrDefault(tags => tags.TagId == id);
+    ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Name");
+    return View(thisTag);
+  }
+
+  [HttpPost]
+  public ActionResult AddRecipe(Tag tag, int recipeId)
+  {
+    #nullable enable
+    RecipeTag? joinEntity = _db.RecipeTags.FirstOrDefault(join => (join.RecipeId == recipeId && join.TagId == tag.TagId));
+    #nullable disable
+    if (joinEntity == null && recipeId != 0)
+    {
+      _db.RecipeTags.Add(new RecipeTag() { TagId = tag.TagId, RecipeId = recipeId});
+      _db.SaveChanges();
+    }
+    return RedirectToAction("Details", new { id = tag.TagId });
+  }
+
+  public ActionResult Edit(int id)
+  {
+    Tag thisTag = _db.Tags.FirstOrDefault(tag => tag.TagId == id);
+    return View(thisTag);
+  }
+
+  [HttpPost]
+  public ActionResult Edit(Tag tag)
+  {
+    _db.Tags.Update(tag);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
+  }
+
+  public ActionResult Delete(int id)
+  {
+    Tag thisTag = _db.Tags.FirstOrDefault(tags => tags.TagId == id);
+    return View(thisTag);
+  }
+
+  [HttpPost, ActionName("Delete")]
+  public ActionResult DeleteConfirmed(int id)
+  {
+    Tag thisTag = _db.Tags.FirstOrDefault(tags => tags.TagId == id);
+    _db.Tags.Remove(thisTag);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
   }
 }
