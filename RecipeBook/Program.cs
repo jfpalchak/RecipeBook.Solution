@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace RecipeBook
 {
@@ -52,6 +53,41 @@ namespace RecipeBook
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}"
       );
+
+      // SEED ROLES & ADMIN USER
+      // using (var scope = app.Services.CreateScope())
+      // {
+      //   RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+      //   UserManager<ApplicationUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+      //   string[] roles = new [] { "Admin", "Manger", "Member" };
+
+      //   string email = "admin@test.com";
+      //   string password = "password";
+
+      //   // SEED ROLES
+      //   foreach (string role in roles)
+      //   {
+      //     if (!await roleManager.RoleExistsAsync(role))
+      //     {
+      //       await roleManager.CreateAsync(new IdentityRole(role));
+      //     }
+      //   }
+
+      //   // SEED ADMIN
+      //   // did we already seed it?
+      //   if(await userManager.FindByEmailAsync(email) == null)
+      //   {
+      //     ApplicationUser user = new ApplicationUser();
+      //     user.UserName = email;
+      //     user.Email = email;
+
+      //     // Create the account
+      //     await userManager.CreateAsync(user, password);
+      //     // Add the account to the Admin role
+      //     await userManager.AddToRoleAsync(user, "Admin");
+      //   }
+      // }
 
       app.Run();
     }
