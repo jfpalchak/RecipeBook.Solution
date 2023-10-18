@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Microsoft.AspNetCore.Identity.IdentityRole;
+
+<h5>Manage Roles</h5>
+@Html.ActionLink("Add a Role", "Create") | 
+@Html.ActionLink("Manage Roles", "Index", "Roles") |
+@Html.ActionLink("Manage Users", "Index", "Admin")
+<hr/>
+
+<div class="container">
+  <h5>Add a Role</h5>
+  @using (Html.BeginForm())
+  {
+    @Html.Label("Role Name")
+    <br/>
+    @Html.TextBox("name")
+    <br/>
+    <br/>
+    <input type="submit" value="Create" class="btn btn-primary" />
+  }
+</div>
