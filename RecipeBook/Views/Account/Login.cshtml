@@ -5,33 +5,35 @@
 @model LoginViewModel;
 
 <div class="sub-header">
-  <h5>Log in with your Account</h5>
+  <h5>Account Management</h5>
 </div>
 <hr/>
 
-<div class="container">
-
-  @if(!ViewData.ModelState.IsValid)
-  {
-    @Html.ValidationSummary("Please fix the following error(s):")
-  }
-
-  @using (Html.BeginForm())
-  {
-    @Html.LabelFor(user => user.Email)
-    <br/>
-    @Html.TextBoxFor(user => user.Email)
-    <br/>
-    @Html.LabelFor(user => user.Password)
-    <br/>
-    @Html.EditorFor(user => user.Password)
-    <br/>
-    <br/>
-    <input type="submit" value="Log In" />
-  }
-
-  <br/>
-
-  <p>@Html.ActionLink("Register for an Account", "Register")</p>
-
-</div>
+@using (Html.BeginForm())
+{
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h5>Log In</h5>
+      </div>
+      <div class="card-body">
+        @if(!ViewData.ModelState.IsValid)
+        {
+          @Html.ValidationSummary("Please fix the following error(s):", new { @class = "text-danger" })
+        }
+        @Html.LabelFor(user => user.Email)
+        <br/>
+        @Html.TextBoxFor(user => user.Email, new { @class="input-form round" })
+        <br/>
+        @Html.LabelFor(user => user.Password)
+        <br/>
+        @Html.EditorFor(user => user.Password)
+        <br/>
+      </div>
+      <div class="card-footer">
+        <p style="float: right;">@Html.ActionLink("Register for an Account", "Register")</p>
+        <input type="submit" value="Log In" class="btn btn-primary"/>
+      </div>
+    </div>
+  </div>
+}

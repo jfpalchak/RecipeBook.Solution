@@ -15,7 +15,7 @@
       <nav>
         <span style = "float:right; margin-top: 10px; margin-right: 10px;">
           <i class="bi bi-person-circle"></i>
-          @Html.ActionLink("Account", "Index", "Account")
+          @Html.ActionLink((User.Identity.IsAuthenticated ? @User.Identity.Name : "Account"), "Index", "Account")
         </span>
         <h1 class="brand">recipeBook</h1>
         @Html.ActionLink("Home", "Index", "Home") /

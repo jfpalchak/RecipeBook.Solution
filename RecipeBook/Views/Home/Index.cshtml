@@ -18,10 +18,14 @@
 					<h5>Popular Recipes</h5>
 				</div>
 				<div class="card-body">
-					<ul>
+					<ul class="list-unstyled">
 						@foreach(Recipe recipe in Model["recipes"])
 						{
-							<li>@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId})</li>
+							<li>
+								@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId})
+								<br/>
+								<small><em>by @recipe.User.UserName</em></small>
+							</li>
 						}
 					</ul>
 				</div>
