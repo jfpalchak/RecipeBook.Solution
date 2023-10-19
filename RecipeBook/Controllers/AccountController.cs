@@ -90,4 +90,9 @@ public class AccountController : Controller
     await _signInManager.SignOutAsync();
     return RedirectToAction("Index");
   }
+
+  public ActionResult AccessDenied()
+  {
+    return View();
+  }
 }
