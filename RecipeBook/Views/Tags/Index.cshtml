@@ -4,11 +4,13 @@
 
 @model List<RecipeBook.Models.Tag>;
 
-<h5>Available Tags</h5>
-@if (User.Identity.IsAuthenticated)
-{
-  @Html.ActionLink("Add New Tag", "Create")
-}
+<div class="sub-header">
+  <h5>Available Tags</h5>
+  @if (User.Identity.IsAuthenticated)
+  {
+    @Html.ActionLink("Add New Tag", "Create")
+  }
+</div>
 <hr/>
 
 @if (Model.Count == 0)

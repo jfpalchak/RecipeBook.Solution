@@ -4,31 +4,46 @@
 
 @model RecipeBook.Models.Recipe;
 
-<h5>Add New Recipe</h5>
+<div class="sub-header">
+  <h5>Add New Recipe</h5>
+</div>
 <hr/>
 
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(m => m.Name)
-  @Html.TextBoxFor(m => m.Name)
+<div class="container">
+  @using (Html.BeginForm())
+  {
+    <div class="card">
+      <div class="card-header">
+        <h5>Recipe Details</h5>
+      </div>
+      <div class="card-body">
+        @Html.LabelFor(m => m.Name)
+        <br/>
+        @Html.TextBoxFor(m => m.Name, new { @class="form-control round" })
+        <br/>
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class="text-danger"})
+        @Html.LabelFor(m => m.Instructions)
+        <br/>
+        @Html.TextBoxFor(m => m.Instructions, new { @class="form-control round" })
+        <br/>
+        @Html.ValidationMessageFor(m => m.Instructions, "", new { @class="text-danger"})
+        @Html.LabelFor(m => m.Ingredients)
+        <br/>
+        @Html.TextBoxFor(m => m.Ingredients, new { @class="form-control round" })
+        <br/>
+        @Html.ValidationMessageFor(m => m.Ingredients, "", new { @class="text-danger"})
+        @Html.LabelFor(m => m.Category)
+        <br/>
+        @Html.DropDownList("CategoryId")
+        <br/>
+        @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class="text-danger"})
+        <br/>
+      </div>
+      <div class="card-footer">
+        <input type="submit" value="Add New Recipe" class="btn btn-primary" />
+        &nbsp;&nbsp;@Html.ActionLink("Cancel", "Index")
+      </div>
+    </div>
+  }
   <br/>
-  @Html.ValidationMessageFor(m => m.Name, "", new { @class="text-danger"})
-  <br/>
-  @Html.LabelFor(m => m.Instructions)
-  @Html.TextBoxFor(m => m.Instructions)
-  <br/>
-  @Html.ValidationMessageFor(m => m.Instructions, "", new { @class="text-danger"})
-  <br/>
-  @Html.LabelFor(m => m.Ingredients)
-  @Html.TextBoxFor(m => m.Ingredients)
-  <br/>
-  @Html.ValidationMessageFor(m => m.Ingredients, "", new { @class="text-danger"})
-  <br>
-  @Html.LabelFor(m => m.Category)
-  @Html.DropDownList("CategoryId")
-  <br/>
-  @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class="text-danger"})
-  <br/>
-  <br/>
-  <input type="submit" value="Add New Item" class="btn btn-primary" />
-}
+</div>

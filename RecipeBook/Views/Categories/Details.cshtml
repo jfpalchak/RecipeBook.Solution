@@ -5,12 +5,14 @@
 @using RecipeBook.Models;
 @model RecipeBook.Models.Category;
 
-<h5>Category Details</h5>
-@if(User.Identity.IsAuthenticated)
-{
-  @Html.ActionLink("Edit Category", "Edit") @:|
-  @Html.ActionLink("Remove Category", "Delete")
-}
+<div class="sub-header">
+  <h5>Category Details</h5>
+  @if(User.Identity.IsAuthenticated)
+  {
+    @Html.ActionLink("Edit Category", "Edit") @:|
+    @Html.ActionLink("Remove Category", "Delete")
+  }
+</div>
 <hr/>
 
 <h5>Category: @Model.Name</h5>

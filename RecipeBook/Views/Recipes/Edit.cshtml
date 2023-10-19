@@ -1,0 +1,49 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBook.Models.Recipe;
+
+<div class="sub-header">
+  <h5>Edit Recipe > @Html.ActionLink(@Model.Name, "Details", new { id = Model.RecipeId })</h5>
+</div>
+<hr/>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+      <div class="card">
+        <div class="card-header">
+          <h5>Edit Recipe Details</h5>
+          <h6>@Model.Name</h6>
+        </div>
+        <div class="card-body">
+          @Html.LabelFor(m => m.Name)
+          <br/>
+          @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class="form-control round" }})
+          <br/>
+          @Html.ValidationMessageFor(m => m.Name, "", new { @class="text-danger"})
+          @Html.LabelFor(m => m.Instructions)
+          <br/>
+          @Html.EditorFor(m => m.Instructions, new { htmlAttributes = new { @class="form-control round" }})
+          <br/>
+          @Html.ValidationMessageFor(m => m.Instructions, "", new { @class="text-danger"})
+          @Html.LabelFor(m => m.Ingredients)
+          <br/>
+          @Html.EditorFor(m => m.Ingredients, new { htmlAttributes = new { @class="form-control round" }})
+          <br/>
+          @Html.ValidationMessageFor(m => m.Ingredients, "", new { @class="text-danger"})
+          @Html.LabelFor(m => m.Category)
+          <br/>
+          @Html.DropDownList("CategoryId")
+          <br/>
+          @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class="text-danger"})
+          <br/>
+        </div>
+        <div class="card-footer">
+          <input type="submit" value="Update Recipe" class="btn btn-primary" />
+          &nbsp;&nbsp;@Html.ActionLink("Cancel", "Details", new { id = Model.RecipeId })
+        </div>
+      </div>
+    }
+    <br/>
+</div>

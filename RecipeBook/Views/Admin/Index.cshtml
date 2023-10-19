@@ -6,10 +6,12 @@
 @using RecipeBook.ViewModels;
 @model List<RecipeBook.ViewModels.UserRolesViewModel>;
 
-<h5>Manage Users</h5>
-@Html.ActionLink("Add a Role", "Create", "Roles") | 
-@Html.ActionLink("Manage Roles", "Index", "Roles") |
-@Html.ActionLink("Manage Users", "Index", "Admin")
+<div class="sub-header">
+  <h5>Manage Users</h5>
+  @Html.ActionLink("Add a Role", "Create", "Roles") | 
+  @Html.ActionLink("Manage Roles", "Index", "Roles") |
+  @Html.ActionLink("Manage Users", "Index", "Admin")
+</div>
 <hr/>
 
 <div class="container">

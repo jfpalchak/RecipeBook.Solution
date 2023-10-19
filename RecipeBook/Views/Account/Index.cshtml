@@ -1,29 +1,39 @@
 @{
   Layout = "_Layout";
 }
-<h5>Account Management</h5>
-@if(User.IsInRole("Admin"))
-  {
-    @Html.ActionLink("Add a Role", "Create", "Roles") @:| 
-    @Html.ActionLink("Manage Roles", "Index", "Roles") @:|
-    @Html.ActionLink("Manage Users", "Index", "Admin")
-  }
+
+<div class="sub-header">
+  <h5>Account Management</h5>
+  @if(User.IsInRole("Admin"))
+    {
+      @Html.ActionLink("Add a Role", "Create", "Roles") @:| 
+      @Html.ActionLink("Manage Roles", "Index", "Roles") @:|
+      @Html.ActionLink("Manage Users", "Index", "Admin")
+    }
+</div>
 <hr/>
 
 <div class="container">
   <br/>
-  @if(User.Identity.IsAuthenticated)
-  {
-    <p>Welcome, @User.Identity.Name!</p>
-    @using (Html.BeginForm("LogOff", "Account"))
-    {
-      <input type="submit" value="Log Off" class="btn btn-primary" />
-    }
-  }
-  else
-  {
-    <h6>@Html.ActionLink("Log In", "Login")</h6>
-    <h6>@Html.ActionLink("Register", "Register")</h6>
-  }
-
+  <div class="card">
+      @if(User.Identity.IsAuthenticated)
+      {
+        <div class="card-body">
+        <p>Welcome, @User.Identity.Name!</p>
+        </div>
+        <div class="card-footer">
+        @using (Html.BeginForm("LogOff", "Account"))
+        {
+          <input type="submit" value="Log Off" class="btn btn-primary" />
+        }
+        </div>
+      }
+      else
+      {
+        <div class="card-body">
+          <h6>@Html.ActionLink("Log In", "Login")</h6>
+          <h6>@Html.ActionLink("Register", "Register")</h6>
+        </div>
+      }
+  </div>
 </div>

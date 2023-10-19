@@ -5,13 +5,15 @@
 @using RecipeBook.Models;
 @model RecipeBook.Models.Tag;
 
-<h5>Tag Details</h5>
-@if(User.Identity.IsAuthenticated)
-{
-  @Html.ActionLink("Add Recipe", "AddRecipe", new { id = Model.TagId }) @:|
-  @Html.ActionLink("Edit Tag", "Edit") @:|
-  @Html.ActionLink("Remove Tag", "Delete")
-}
+<div class="sub-header">
+  <h5>Tag Details</h5>
+  @if(User.Identity.IsAuthenticated)
+  {
+    @Html.ActionLink("Add Recipe", "AddRecipe", new { id = Model.TagId }) @:|
+    @Html.ActionLink("Edit Tag", "Edit") @:|
+    @Html.ActionLink("Remove Tag", "Delete")
+  }
+</div>
 <hr/>
 
 @if(@Model.JoinEntities.Count == 0)

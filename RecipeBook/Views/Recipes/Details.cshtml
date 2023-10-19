@@ -5,17 +5,26 @@
 @using RecipeBook.Models;
 @model RecipeBook.Models.Recipe;
 
+<div class="sub-header">
 <h5>Recipe Details</h5>
-@if(User.Identity.Name == @Model.User.UserName || User.IsInRole("Admin"))
-{
-  @Html.ActionLink("Edit Recipe", "Edit") @:|
-  @Html.ActionLink("Remove Recipe", "Delete")
-}
+</div>
 <hr/>
 
-<h5>@Model.Name</h5>
-submitted by @Model.User.UserName
-<br/>
-<br/>
-<h6>Ingredients: @Model.Ingredients</h6>
-<h6>Instructions: @Model.Instructions</h6>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h5>@Model.Name</h5>
+      Submitted by @Model.User.UserName
+      @if(User.Identity.Name == @Model.User.UserName || User.IsInRole("Admin"))
+      {
+        <br/>
+        @Html.ActionLink("Edit Recipe", "Edit", new { id = Model.RecipeId}) @:|
+        @Html.ActionLink("Remove Recipe", "Delete")
+      }
+    </div>
+    <div class="card-body">
+      <h6>Ingredients: @Model.Ingredients</h6>
+      <h6>Instructions: @Model.Instructions</h6>
+    </div>
+  </div>
+</div>

@@ -2,5 +2,45 @@
 	Layout = "_Layout";
 }
 
-<h5>Welcome!</h5>
+@using RecipeBook.Models;
+@using System.Collections.Generic;
+
+<div class="sub-header">
+	<h5>Welcome!</h5>
+</div>
 <hr/>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+					<h5>Popular Recipes</h5>
+				</div>
+				<div class="card-body">
+					<ul>
+						@foreach(Recipe recipe in Model["recipes"])
+						{
+							<li>@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId})</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+					<h5>Popular Categories</h5>
+				</div>
+				<div class="card-body">
+					<ul>
+						@foreach(Category cat in Model["categories"])
+						{
+							<li>@Html.ActionLink(cat.Name, "Details", "Categories", new { id = cat.CategoryId})</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
