@@ -23,6 +23,7 @@ public class RecipesController : Controller
     _db = database;
   }
 
+  [AllowAnonymous]
   [HttpPost]
   #nullable enable
   public ActionResult Search(string? search)

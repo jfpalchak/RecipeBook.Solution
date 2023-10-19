@@ -6,7 +6,7 @@
 @model RecipeBook.Models.Recipe;
 
 <h5>Recipe Details</h5>
-@if(User.Identity.Name == @Model.User.UserName)
+@if(User.Identity.Name == @Model.User.UserName || User.IsInRole("Admin"))
 {
   @Html.ActionLink("Edit Recipe", "Edit") @:|
   @Html.ActionLink("Remove Recipe", "Delete")

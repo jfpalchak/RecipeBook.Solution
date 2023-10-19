@@ -2,6 +2,12 @@
   Layout = "_Layout";
 }
 <h5>Account Management</h5>
+@if(User.IsInRole("Admin"))
+  {
+    @Html.ActionLink("Add a Role", "Create", "Roles") @:| 
+    @Html.ActionLink("Manage Roles", "Index", "Roles") @:|
+    @Html.ActionLink("Manage Users", "Index", "Admin")
+  }
 <hr/>
 
 <div class="container">
@@ -18,13 +24,6 @@
   {
     <h6>@Html.ActionLink("Log In", "Login")</h6>
     <h6>@Html.ActionLink("Register", "Register")</h6>
-  }
-
-  @if(User.IsInRole("Admin"))
-  {
-    <br/>
-    @Html.ActionLink("Manage Roles", "Index", "Roles") @:|
-    @Html.ActionLink("Manage Users", "Index", "Admin")
   }
 
 </div>
