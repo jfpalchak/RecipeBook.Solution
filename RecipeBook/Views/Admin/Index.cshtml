@@ -36,7 +36,7 @@
             <td>@user.UserId</td>
             <td>@user.UserName</td>
             <td>@string.Join(" , ", user.Roles.ToList())</td>
-            <td>@Html.ActionLink("Edit", "Edit", new { id = user.UserId })</td>
+            <td>@Html.ActionLink("Update", "Update", new { userId = user.UserId })</td>
             <td>@Html.ActionLink("Delete", "Delete", new { id = user.UserId })</td>
           </tr>
         }

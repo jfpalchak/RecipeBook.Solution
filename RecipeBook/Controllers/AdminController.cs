@@ -6,6 +6,7 @@ using RecipeBook.Models;
 using RecipeBook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace RecipeBook.Controllers;
 
@@ -59,4 +60,70 @@ public class AdminController : Controller
   //   }
   //   return View(usersWithRole);
   // }
+
+  public async Task<ActionResult> Update(string userId)
+  {
+    List<UpdateUserRolesViewModel> model = new List<UpdateUserRolesViewModel>();
+
+    ViewBag.UserId = userId;
+    List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
+    ApplicationUser user = await _userManager.FindByIdAsync(userId);
+    if (user == null)
+    {
+      ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found.";
+      return View();
+    }
+
+    ViewBag.UserName = user.UserName;
+    foreach (IdentityRole role in roles)
+    {
+      UpdateUserRolesViewModel userRolesToManage = new UpdateUserRolesViewModel 
+      {
+        RoleId = role.Id, 
+        RoleName = role.Name 
+      };
+      
+      if( await _userManager.IsInRoleAsync(user, role.Name))
+      {
+        userRolesToManage.Selected = true;
+      }
+      else
+      {
+        userRolesToManage.Selected = false;
+      }
+      model.Add(userRolesToManage);
+    }
+    return View(model);
+  }
+
+  [HttpPost]
+  public async Task<ActionResult> Update(List<UpdateUserRolesViewModel> model, string userId)
+  {
+    ApplicationUser user = await _userManager.FindByIdAsync(userId);
+    if (user == null)
+    {
+      return View(model);
+    }
+    
+    // Remove User's Roles
+    List<string> roles = new List<string>(await _userManager.GetRolesAsync(user));
+    IdentityResult result = await _userManager.RemoveFromRolesAsync(user, roles);
+    if (!result.Succeeded)
+    {
+      ModelState.AddModelError("", "Cannot remove user's existing roles.");
+      return View(model);
+    }
+
+    // Add Roles to User
+    result = await _userManager.AddToRolesAsync(user, model
+                                                        .Where(role => role.Selected)
+                                                        .Select(role => role.RoleName));
+    if (!result.Succeeded)
+    {
+      ModelState.AddModelError("", "Cannot add selected roles to User.");
+      return View(model);
+    }
+
+    return RedirectToAction("Index");
+  }
 }
