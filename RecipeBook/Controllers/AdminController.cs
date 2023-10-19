@@ -126,4 +126,24 @@ public class AdminController : Controller
 
     return RedirectToAction("Index");
   }
+
+  [HttpPost]
+  public async Task<ActionResult> Delete(string id)
+  {
+    ApplicationUser user = await _userManager.FindByIdAsync(id);
+    if(user != null)
+    {
+      IdentityResult result = await _userManager.DeleteAsync(user);
+      if(result.Succeeded)
+        return RedirectToAction("Index");
+      else
+        ModelState.AddModelError("", "Something went wrong.");
+    }
+    else
+    {
+      ModelState.AddModelError("", "User Not Found");
+    }
+
+    return RedirectToAction("Index");
+  }
 }

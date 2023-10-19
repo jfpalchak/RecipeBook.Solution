@@ -37,7 +37,12 @@
             <td>@user.UserName</td>
             <td>@string.Join(" , ", user.Roles.ToList())</td>
             <td>@Html.ActionLink("Update", "Update", new { userId = user.UserId })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { id = user.UserId })</td>
+            <td>
+              @using (Html.BeginForm("Delete", "Admin"))
+              {
+                @Html.Hidden("id", @user.UserId)
+                <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+              }
           </tr>
         }
       </tbody>
