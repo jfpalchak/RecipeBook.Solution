@@ -6,9 +6,11 @@ using RecipeBook.Models;
 using RecipeBook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RecipeBook.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class RolesController : Controller
 {
   private readonly RecipeBookContext _db;
@@ -82,8 +84,74 @@ public class RolesController : Controller
     return View("Index", _roleManager.Roles);
   }
 
-  // public async Task<ActionResult> Update(string id)
-  // {
-    
-  // }
+  public async Task<ActionResult> Update(string id)
+  {
+    IdentityRole role = await _roleManager.FindByIdAsync(id);
+    List<ApplicationUser> members = new List<ApplicationUser>();
+    List<ApplicationUser> nonMembers = new List<ApplicationUser>();
+
+    List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+    foreach(ApplicationUser user in users)
+    {
+      // IF the user is in this role, add to the members list. 
+      // Otherwise add to the Non Members list.
+      if(await _userManager.IsInRoleAsync(user, role.Name))
+        members.Add(user);
+      else
+        nonMembers.Add(user);
+    }
+    // Depending on the chosen Role, send an instance of the RoleEdit Model to list 
+    // the particular Role's users that are both assigned and not assigned this Role.
+    return View(new RoleEdit
+    {
+      Role = role,
+      Members = members,
+      NonMembers = nonMembers
+    });
+  }
+
+  [HttpPost]
+  public async Task<ActionResult> Update(RoleModification model)
+  {
+    IdentityResult result;
+    if (!ModelState.IsValid)
+    {
+      return RedirectToAction("Update", new { id = model.RoleId });
+    }
+    else
+    {
+      foreach (string userId in model.AddIds ?? new string[] {})
+      {
+        ApplicationUser user = await _userManager.FindByIdAsync(userId);
+        if (user != null)
+        {
+          result = await _userManager.AddToRoleAsync(user, model.RoleName);
+          if (!result.Succeeded)
+          {
+            foreach (IdentityError error in result.Errors)
+            {
+              ModelState.AddModelError("", error.Description);
+            }
+          }
+        }
+      }
+      foreach (string userId in model.DeleteIds ?? new string[] {})
+      {
+        ApplicationUser user = await _userManager.FindByIdAsync(userId);
+        if (user != null)
+        {
+          result = await _userManager.RemoveFromRoleAsync(user, model.RoleName);
+          if (!result.Succeeded)
+          {
+            foreach (IdentityError error in result.Errors)
+            {
+              ModelState.AddModelError("", error.Description);
+            }
+          }
+        }
+      }
+    }
+
+    return RedirectToAction("Index");
+  }
 }

@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using RecipeBook.Models;
 using RecipeBook.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RecipeBook.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
   private readonly RecipeBookContext _db;
@@ -43,4 +45,18 @@ public class AdminController : Controller
 
     return View(userRolesViewModel);
   }
+
+  // USING A DICTIONARY INSTEAD OF A VIEWMODEL
+  // public async Task<ActionResult> Index()
+  // {
+  //   List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
+  //   Dictionary<IdentityRole, List<ApplicationUser>> usersWithRole = new Dictionary<IdentityRole, List<ApplicationUser>>();
+  //   foreach(IdentityRole role in roles)
+  //   {
+  //     List<ApplicationUser> usersInRole = _userManager.GetUsersInRoleAsync(role.Name).Result.ToList();
+  //     usersWithRole.Add(role, usersInRole);
+
+  //   }
+  //   return View(usersWithRole);
+  // }
 }

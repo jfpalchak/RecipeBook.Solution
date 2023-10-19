@@ -1,0 +1,63 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Microsoft.AspNetCore.Identity;
+@using RecipeBook.Models;
+@model RoleEdit;
+
+<h5>Manage Roles > @Model.Role.Name</h5>
+@Html.ActionLink("Add a Role", "Create") | 
+@Html.ActionLink("Manage Roles", "Index", "Roles") |
+@Html.ActionLink("Manage Users", "Index", "Admin")
+<hr/>
+
+<div class = "container">
+  @using (Html.BeginForm())
+  {
+    @Html.Hidden("roleName", @Model.Role.Name)
+    @Html.Hidden("roleId", @Model.Role.Id)
+
+    <h5>Add to "@Model.Role.Name"</h5>
+    <table class="table table-striped">
+      @if (Model.NonMembers.Count == 0)
+      {
+        <tr><td colspan="2">All Users Are Members</td></tr>
+      }
+      else
+      {
+        @foreach (ApplicationUser user in Model.NonMembers)
+        {
+          <tr>
+            <td>@user.UserName</td>
+            <td>
+              <input type="checkbox" name="AddIds" value="@user.Id" />
+            </td>
+          </tr>
+        }
+      }
+    </table>
+
+    <h5>Remove from "@Model.Role.Name"</h5>
+    <table class="table table-striped">
+      @if (Model.Members.Count == 0)
+      {
+        <tr><td colspan="2">No Users are Members</td></tr>
+      }
+      else
+      {
+        @foreach (ApplicationUser user in Model.Members)
+        {
+          <tr>
+            <td>@user.UserName</td>
+            <td>
+              <input type="checkbox" name="DeleteIds" value="@user.Id" />
+            </td>
+          </tr>
+        }
+      }
+    </table>
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <h6 style="float:right;">@Html.ActionLink("Cancel", "Index")</h6>
+  }
+</div>
