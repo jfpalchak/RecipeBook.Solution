@@ -5,24 +5,33 @@
 @model List<RecipeBook.Models.Category>;
 
 <div class="sub-header">
-<h5>Available Categories</h5>
-  @if (User.Identity.IsAuthenticated)
-  {
-    @Html.ActionLink("Add New Category", "Create")
-  }
+<h5>Categories</h5>
 </div>
 <hr/>
 
-@if (Model.Count == 0)
-{
-  <p>There are no categories available.</p>
-}
-else
-{
-  <ul>
-    @foreach(Category category in Model)
-    {
-      <h6><li>@Html.ActionLink(category.Name, "Details", new { id = category.CategoryId })</li></h6>
-    }
-  </ul>
-}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h5>Available Categories</h5>
+      @if (User.Identity.IsAuthenticated)
+      {
+        @Html.ActionLink("Add New Category", "Create")
+      }
+    </div>
+    <div class="card-body">
+      @if (Model.Count == 0)
+      {
+        <p>There are no categories available.</p>
+      }
+      else
+      {
+        <ul>
+          @foreach(Category category in Model)
+          {
+            <h6><li>@Html.ActionLink(category.Name, "Details", new { id = category.CategoryId })</li></h6>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</div>

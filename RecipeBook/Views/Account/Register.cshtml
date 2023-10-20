@@ -5,32 +5,46 @@
 @model RegisterViewModel;
 
 <div class="sub-header">
-  <h5>Register New User</h5>
+  <h5>Account Management</h5>
 </div>
 <hr/>
 
-<div class="container">
-
-  @if(!ViewData.ModelState.IsValid)
-  {
-    @Html.ValidationSummary("Please fix the following error(s):")
-  }
-
-  @using (Html.BeginForm())
-  {
-    @Html.LabelFor(user => user.Email)
+@using (Html.BeginForm())
+{
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h5>Register New User</h5>
+      </div>
+      <div class="card-body">
+        @if(!ViewData.ModelState.IsValid)
+        {
+          @Html.ValidationSummary("Please fix the following error(s):")
+        }
+        @Html.LabelFor(user => user.Email)
+        <br/>
+        <div class="col-7">
+          @Html.TextBoxFor(user => user.Email, new { @class="form-control" })
+        </div>
+        <br/>
+        @Html.LabelFor(user => user.Password)
+        <br/>
+        <div class="col-7">
+          @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class="form-control round" }})
+        </div>
+        <br/>
+        @Html.LabelFor(user => user.ConfirmPassword)
+        <br/>
+        <div class="col-7">
+          @Html.EditorFor(user => user.ConfirmPassword, new { htmlAttributes = new { @class="form-control round" }})
+        </div>
+        <br/>
+      </div>
+      <div class="card-footer">
+        <input type="submit" value="Register" class="btn btn-primary" />
+        &nbsp;&nbsp;@Html.ActionLink("Back", "Index", "Account")
+      </div>
+    </div>
     <br/>
-    @Html.TextBoxFor(user => user.Email)
-    <br/>
-    @Html.LabelFor(user => user.Password)
-    <br/>
-    @Html.EditorFor(user => user.Password)
-    <br/>
-    @Html.LabelFor(user => user.ConfirmPassword)
-    <br/>
-    @Html.EditorFor(user => user.ConfirmPassword)
-    <br/>
-    <br/>
-    <input type="submit" value="Register" />
-  }
-</div>
+  </div>
+}

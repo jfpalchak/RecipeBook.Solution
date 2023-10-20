@@ -23,16 +23,21 @@
         }
         @Html.LabelFor(user => user.Email)
         <br/>
-        @Html.TextBoxFor(user => user.Email, new { @class="input-form round" })
+        <div class="col-7">
+          @Html.TextBoxFor(user => user.Email, new { @class="form-control" })
+        </div>
         <br/>
         @Html.LabelFor(user => user.Password)
         <br/>
-        @Html.EditorFor(user => user.Password)
+        <div class="col-7">
+        @Html.EditorFor(user => user.Password, new { htmlAttributes = new { @class="form-control round" }})
+        </div>
         <br/>
       </div>
       <div class="card-footer">
-        <p style="float: right;">@Html.ActionLink("Register for an Account", "Register")</p>
+        
         <input type="submit" value="Log In" class="btn btn-primary"/>
+        &nbsp;&nbsp;@Html.ActionLink("Register for an Account", "Register")
       </div>
     </div>
   </div>

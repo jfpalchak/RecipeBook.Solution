@@ -5,24 +5,33 @@
 @model List<RecipeBook.Models.Recipe>;
   
 <div class="sub-header">
-  <h5>Available Recipes</h5>
-  @if (User.Identity.IsAuthenticated)
-  {
-    @Html.ActionLink("Add New Recipe", "Create")
-  }
+  <h5>Recipes</h5>
 </div>
 <hr/>
 
-@if (Model.Count == 0)
-{
-  <p>There are no recipes available.</p>
-}
-else
-{
-  <ul>
-    @foreach(Recipe recipe in Model)
-    {
-      <h6><li>@Html.ActionLink(recipe.Name, "Details", new { id = recipe.RecipeId })</li></h6>
-    }
-  </ul>
-}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h5>Available Recipes</h5>
+        @if (User.Identity.IsAuthenticated)
+        {
+          @Html.ActionLink("Add New Recipe", "Create")
+        }
+    </div>
+    <div class="card-body">
+      @if (Model.Count == 0)
+      {
+        <p>There are no recipes available.</p>
+      }
+      else
+      {
+        <ul>
+          @foreach(Recipe recipe in Model)
+          {
+            <h6><li>@Html.ActionLink(recipe.Name, "Details", new { id = recipe.RecipeId })</li></h6>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</div>
