@@ -23,6 +23,8 @@ Recipe Book is an MVC web application allowing users to search for, read, edit, 
 
 The web application incorporates role-based authorization, with Administrative functionality allowing an Admin user to manage user accounts and user roles throughout the site. If a user creates an Admin account, or is assigned an Admin role, they'll have access to not just the Admin controller, but to edit and delete actions for any user submitted recipe.
 
+<img src="https://github.com/jfpalchak/RecipeBook.Solution/blob/main/RecipeBook/wwwroot/img/Admin.png" alt="Recipe Book Administrator's Manage User page"/>
+
 ## Setup/Installation Requirements
 
 ### Install Tools
