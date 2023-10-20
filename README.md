@@ -17,7 +17,9 @@
 
 ## Description
 
-An MVC web application allowing users to search for, read, edit, delete, and submit recipes to the application's database. If the user is signed in to their own account, they can only read and search through the sites recipes. However, if a user registers an account, they'll be authorized to author their own recipes, as well as edit or delete previous submissions.
+Recipe Book is an MVC web application allowing users to search for, read, edit, delete, and submit recipes to the application's database. If the user is signed in to their own account, they can only read and search through the sites recipes. However, if a user registers an account, they'll be authorized to author their own recipes, as well as edit or delete previous submissions.
+
+<img src="https://github.com/jfpalchak/RecipeBook.Solution/blob/main/RecipeBook/wwwroot/css/Splash.png" alt="Recipe Book splash page">
 
 The web application incorporates role-based authorization, with Administrative functionality allowing an Admin user to manage user accounts and user roles throughout the site. If a user creates an Admin account, or is assigned an Admin role, they'll have access to not just the Admin controller, but to edit and delete actions for any user submitted recipe.
 
